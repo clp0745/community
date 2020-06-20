@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 发现</h2>
-            <div class="media" th:each="question:${questions}">
+            <div class="media" th:each="question:${pageInfo.getList()}">
                 <div class="media-left">
                     <a href="#">
                         <img class="media-object img-rounded" th:src="${question.user.avatarUrl}">
@@ -29,10 +29,60 @@
                         [[${#dates.format(question.gmtCreate,'dd MMMM yyyy')}]]小时前</span>
                 </div>
             </div>
+<!--            显示分页-->
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 page-height">
+                    <p th:text="'当前页'+${pageInfo.getPageNum()}+'页，总共'+${pageInfo.getPages()}+'页，总共'+${pageInfo.getTotal()+'条记录'}"></p>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <nav aria-label="Page navigation right">
+                        <ul class="pagination list-unstyled">
+                            <li th:class="${pageInfo.isFirstPage==true}?'disabled':''">
+                                <a th:href="@{'/?pn=1'}" aria-label="Previous" th:if="${pageInfo.isFirstPage==false}">
+                                    <span aria-hidden="true">&lt;&lt;</span>
+                                </a>
+                                <span th:if="${pageInfo.isFirstPage==true}">
+                                    <span aria-hidden="true">&lt;&lt;</span>
+                                </span>
+                            </li>
+                            <li th:class="${pageInfo.hasPreviousPage==false}?'disabled':''">
+                                <a th:href="@{'/?pn='+${pageInfo.getPrePage()}}" aria-label="Previous" th:if="${pageInfo.hasPreviousPage==true}">
+                                    <span aria-hidden="true">&lt;</span>
+                                </a>
+                                <span th:if="${pageInfo.hasPreviousPage==false}">
+                                    <span aria-hidden="true">&lt;</span>
+                                </span>
+                            </li>
+
+                            <li th:each="item:${pageInfo.getNavigatepageNums()}" th:class="${pageInfo.getPageNum()==item}?'active':''">
+                                <a th:href="@{'/?pn='+${item}}" th:text="${item}" th:if="${pageInfo.getPageNum()!=item}"></a>
+                                <span th:if="${pageInfo.getPageNum()==item}" th:text="${item}"></span>
+                            </li>
+
+                            <li th:class="${pageInfo.hasNextPage==false}?'disabled':''">
+                                <a th:href="@{'/?pn='+${pageInfo.getNextPage()}}" aria-label="Next" th:if="${pageInfo.hasNextPage==true}">
+                                    <span aria-hidden="true">&gt;</span>
+                                </a>
+                                <span th:if="${pageInfo.hasNextPage==false}">
+                                    <span aria-hidden="true">&gt;</span>
+                                </span>
+                            </li>
+                            <li th:class="${pageInfo.isLastPage==true}?'disabled':''">
+                                <a th:href="@{'/?pn='+${pageInfo.getPages()}}" aria-label="Previous" th:if="${pageInfo.isLastPage==false}">
+                                    <span aria-hidden="true">&gt;&gt;</span>
+                                </a>
+                                <span th:if="${pageInfo.isLastPage==true}">
+                                    <span aria-hidden="true">&gt;&gt;</span>
+                                </span>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <h3>问题发起指南</h3>
-            问题发起指南问题发起指南问题发起指南<br>
             问题发起指南问题发起指南问题发起指南<br>
             问题发起指南问题发起指南问题发起指南<br>
         </div>

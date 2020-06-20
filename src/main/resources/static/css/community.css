@@ -19,3 +19,10 @@ body{
     font-weight: normal;
     color: #999999;
 }
+.right{
+    float:right;
+}
+.page-height{
+    height: 80px;
+    line-height: 80px;
+}

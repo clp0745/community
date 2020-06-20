@@ -21,8 +21,11 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
-    public List<QuestionDTO> list() {
-        List<Question> questions = questionMapper.list();
+    public List<Question> list() {
+        return questionMapper.list();
+    }
+
+    public List<QuestionDTO> setQuestionDTO(List<Question> questions) {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questions){
             User user = userMapper.findById(question.getCreator());
