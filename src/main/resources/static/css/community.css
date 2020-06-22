@@ -11,8 +11,8 @@ body{
 }
 
 .media-object{
-    width: 66px;
-    height: 66px;
+    width: 40px;
+    height: 40px;
 }
 .text-desc{
     font-size: 12px;
@@ -25,4 +25,11 @@ body{
 .page-height{
     height: 80px;
     line-height: 80px;
+}
+.profile .section{
+    margin-top: 20px;
+}
+.community-menu{
+    color: #999999;
+    font-size: 12px;
 }
