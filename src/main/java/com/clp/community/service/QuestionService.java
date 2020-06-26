@@ -3,9 +3,11 @@ package com.clp.community.service;
 import com.clp.community.dto.QuestionDTO;
 import com.clp.community.exception.CustomizeErrorCode;
 import com.clp.community.exception.CustomizeException;
+import com.clp.community.mapper.QuestionExtMapper;
 import com.clp.community.mapper.QuestionMapper;
 import com.clp.community.mapper.UserMapper;
 import com.clp.community.model.Question;
+import com.clp.community.model.QuestionExample;
 import com.clp.community.model.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +23,14 @@ public class QuestionService {
     private QuestionMapper questionMapper;
 
     @Autowired
+    private QuestionExtMapper questionExtMapper;
+
+    @Autowired
     private UserMapper userMapper;
 
     public List<Question> list() {
-        return questionMapper.list();
+//        return questionMapper.list();
+        return questionMapper.selectByExample(new QuestionExample());
     }
 
     public List<QuestionDTO> setQuestionDTO(List<Question> questions) {
@@ -41,6 +47,7 @@ public class QuestionService {
 
     public List<Question> list(Integer userId) {
         return questionMapper.listByUserId(userId);
+
     }
 
     public List<QuestionDTO> setQuestionDTOByUserId(List<Question> questions) {
@@ -70,19 +77,25 @@ public class QuestionService {
     public void createOrUpdate(Question question) {
         if (question.getId() == null){
             //創建
-            questionMapper.create(question);
+            questionMapper.insert(question);
         }else {
             //更新
-            question.setGmtModified(System.currentTimeMillis());
-            questionMapper.update(question);
+            Question updateQuestion = new Question();
+            updateQuestion.setGmtModified(System.currentTimeMillis());
+            updateQuestion.setTitle(question.getTitle());
+            updateQuestion.setDescription(question.getDescription());
+            updateQuestion.setTag(question.getTag());
+            QuestionExample example = new QuestionExample();
+            example.createCriteria()
+                    .andIdEqualTo(question.getId());
+            questionMapper.updateByExampleSelective(question,example);
         }
     }
 
     public void incView(Integer id) {
-        Question question = questionMapper.getById(id);
-        Question updateQuestion = new Question();
-        System.out.println(question.getViewCount());
-        updateQuestion.setViewCount(question.getViewCount() + 1);
-        questionMapper.update(updateQuestion);
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
     }
 }
