@@ -1,8 +1,7 @@
 package com.clp.community.controller;
 
-import com.clp.community.mapper.QuestionMapper;
-import com.clp.community.mode.Question;
-import com.clp.community.mode.User;
+import com.clp.community.model.Question;
+import com.clp.community.model.User;
 import com.clp.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

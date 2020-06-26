@@ -1,7 +1,7 @@
 package com.clp.community.dto;
 
-import com.clp.community.mode.Question;
-import com.clp.community.mode.User;
+import com.clp.community.model.Question;
+import com.clp.community.model.User;
 
 public class QuestionDTO extends Question {
     private User user;

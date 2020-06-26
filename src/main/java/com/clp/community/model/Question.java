@@ -1,4 +1,4 @@
-package com.clp.community.mode;
+package com.clp.community.model;
 
 public class Question {
     private Integer id;

@@ -1,8 +1,8 @@
 package com.clp.community.controller;
 
 import com.clp.community.dto.QuestionDTO;
-import com.clp.community.mode.Question;
-import com.clp.community.mode.User;
+import com.clp.community.model.Question;
+import com.clp.community.model.User;
 import com.clp.community.service.QuestionService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

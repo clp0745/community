@@ -2,7 +2,7 @@ package com.clp.community.controller;
 
 import com.clp.community.dto.AccessTokenDTO;
 import com.clp.community.dto.GithubUser;
-import com.clp.community.mode.User;
+import com.clp.community.model.User;
 import com.clp.community.provider.GithubProvider;
 import com.clp.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

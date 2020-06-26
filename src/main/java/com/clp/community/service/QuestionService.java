@@ -1,10 +1,12 @@
 package com.clp.community.service;
 
 import com.clp.community.dto.QuestionDTO;
+import com.clp.community.exception.CustomizeErrorCode;
+import com.clp.community.exception.CustomizeException;
 import com.clp.community.mapper.QuestionMapper;
 import com.clp.community.mapper.UserMapper;
-import com.clp.community.mode.Question;
-import com.clp.community.mode.User;
+import com.clp.community.model.Question;
+import com.clp.community.model.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +30,7 @@ public class QuestionService {
     public List<QuestionDTO> setQuestionDTO(List<Question> questions) {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questions){
-            User user = userMapper.findById(question.getCreator());
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);//将question属性拷贝到questionDTO对象上
             questionDTO.setUser(user);
@@ -44,7 +46,7 @@ public class QuestionService {
     public List<QuestionDTO> setQuestionDTOByUserId(List<Question> questions) {
         List<QuestionDTO> questionDTOListByUserId = new ArrayList<>();
         for (Question question : questions){
-            User user = userMapper.findById(question.getCreator());
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);//将question属性拷贝到questionDTO对象上
             questionDTO.setUser(user);
@@ -55,9 +57,12 @@ public class QuestionService {
 
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.getById(id);
+        if (question == null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
-        User user = userMapper.findById(question.getCreator());
+        User user = userMapper.selectByPrimaryKey(question.getCreator());
         questionDTO.setUser(user);
         return questionDTO;
     }
@@ -71,5 +76,13 @@ public class QuestionService {
             question.setGmtModified(System.currentTimeMillis());
             questionMapper.update(question);
         }
+    }
+
+    public void incView(Integer id) {
+        Question question = questionMapper.getById(id);
+        Question updateQuestion = new Question();
+        System.out.println(question.getViewCount());
+        updateQuestion.setViewCount(question.getViewCount() + 1);
+        questionMapper.update(updateQuestion);
     }
 }

@@ -2,15 +2,15 @@ package com.clp.community.mapper;
 
 import com.clp.community.model.User;
 import com.clp.community.model.UserExample;
-import java.util.List;
-
-import org.apache.ibatis.annotations.*;
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Mapper
 @Repository
-public interface UserMapper {
+public interface UserExtMapper {
     long countByExample(UserExample example);
 
     int deleteByExample(UserExample example);
