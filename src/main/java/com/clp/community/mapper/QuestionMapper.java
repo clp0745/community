@@ -26,7 +26,7 @@ public interface QuestionMapper {
 
     List<Question> selectByExample(QuestionExample example);
 
-    Question selectByPrimaryKey(Integer id);
+    Question selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") Question record, @Param("example") QuestionExample example);
 
@@ -44,5 +44,5 @@ public interface QuestionMapper {
     List<Question> listByUserId(@Param("userId") Integer userId);
 
     @Select("select * from question where id = #{id}")
-    Question getById(@Param("id") Integer id);
+    Question getById(@Param("id") Long id);
 }

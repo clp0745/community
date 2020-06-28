@@ -26,4 +26,6 @@ public interface QuestionExtMapper {
     void update(Question question);
 
     int incView(Question record);
+
+    int incCommentCount(Question record);
 }
