@@ -8,8 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.xml.ws.RespectBinding;
-
 @Mapper
 @Repository
 public interface CommentMapper {

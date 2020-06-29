@@ -3,12 +3,21 @@ package com.clp.community.dto;
 import com.clp.community.model.User;
 
 public class CommentDTO extends CommentCreateDTO{
+    private Long id;
     private Long commentator;
     private Long gmtCreate;
     private Long gmtModified;
     private Long likeCount;
-    private String content;
+    private Integer commentCount;
     private User user;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getCommentator() {
         return commentator;
@@ -42,21 +51,19 @@ public class CommentDTO extends CommentCreateDTO{
         this.likeCount = likeCount;
     }
 
-    @Override
-    public String getContent() {
-        return content;
-    }
-
-    @Override
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
     }
 }

@@ -30,7 +30,9 @@ public class QuestionService {
 
     public List<Question> list() {
 //        return questionMapper.list();
-        return questionMapper.selectByExample(new QuestionExample());
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.setOrderByClause("gmt_create desc");
+        return questionMapper.selectByExample(questionExample);
     }
 
     public List<QuestionDTO> setQuestionDTO(List<Question> questions) {

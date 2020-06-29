@@ -1,7 +1,9 @@
 package com.clp.community.controller;
 
 import com.clp.community.dto.CommentCreateDTO;
+import com.clp.community.dto.CommentDTO;
 import com.clp.community.dto.ResultDTO;
+import com.clp.community.enums.CommentTypeEnum;
 import com.clp.community.exception.CustomizeErrorCode;
 import com.clp.community.model.Comment;
 import com.clp.community.model.User;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class CommentController {
@@ -40,5 +43,12 @@ public class CommentController {
         comment.setLikeCount(0L);
         commentService.insert(comment);
         return ResultDTO.okOf();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/comment/{id}",method = RequestMethod.GET)
+    public ResultDTO<List> comments(@PathVariable(name = "id") Long id){
+        List<CommentDTO> commentDTOS = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
+        return ResultDTO.okOf(commentDTOS);
     }
 }
