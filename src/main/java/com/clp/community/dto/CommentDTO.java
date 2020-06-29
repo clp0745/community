@@ -1,31 +1,62 @@
 package com.clp.community.dto;
 
-public class CommentDTO {
-    private Long parentId;
+import com.clp.community.model.User;
+
+public class CommentDTO extends CommentCreateDTO{
+    private Long commentator;
+    private Long gmtCreate;
+    private Long gmtModified;
+    private Long likeCount;
     private String content;
-    private Integer type;
+    private User user;
 
-    public Long getParentId() {
-        return parentId;
+    public Long getCommentator() {
+        return commentator;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setCommentator(Long commentator) {
+        this.commentator = commentator;
     }
 
+    public Long getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Long gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Long getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Long gmtModified) {
+        this.gmtModified = gmtModified;
+    }
+
+    public Long getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(Long likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    @Override
     public String getContent() {
         return content;
     }
 
+    @Override
     public void setContent(String content) {
         this.content = content;
     }
 
-    public Integer getType() {
-        return type;
+    public User getUser() {
+        return user;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
