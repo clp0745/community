@@ -11,10 +11,10 @@
     <result column="like_count" jdbcType="BIGINT" property="likeCount" />
     <result column="content" jdbcType="VARCHAR" property="content" />
   </resultMap>
-  <update id="incCommentCount" parameterType="com.clp.community.model.Comment">
+    <update id="incCommentCount" parameterType="com.clp.community.model.Comment">
         update comment
         set
         comment_count = comment_count + #{commentCount,jdbcType=INTEGER}
         where id = #{id}
-    </update>
+     </update>
 </mapper>
