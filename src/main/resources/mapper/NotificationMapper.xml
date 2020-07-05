@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.clp.community.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.clp.community.model.User">
+<mapper namespace="com.clp.community.mapper.NotificationMapper">
+  <resultMap id="BaseResultMap" type="com.clp.community.model.Notification">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="account_id" jdbcType="VARCHAR" property="accountId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="token" jdbcType="CHAR" property="token" />
+    <result column="notifier" jdbcType="BIGINT" property="notifier" />
+    <result column="receiver" jdbcType="BIGINT" property="receiver" />
+    <result column="outerId" jdbcType="BIGINT" property="outerId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
     <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
-    <result column="gmt_modified" jdbcType="BIGINT" property="gmtModified" />
-    <result column="bio" jdbcType="VARCHAR" property="bio" />
-    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="notifier_name" jdbcType="VARCHAR" property="notifierName" />
+    <result column="outer_title" jdbcType="VARCHAR" property="outerTitle" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,15 +71,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, account_id, name, token, gmt_create, gmt_modified, bio, avatar_url
+    id, notifier, receiver, outerId, type, gmt_create, status, notifier_name, outer_title
   </sql>
-  <select id="selectByExample" parameterType="com.clp.community.model.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.clp.community.model.NotificationExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user
+    from notification
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,114 +90,125 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from user
+    from notification
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from user
+    delete from notification
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.clp.community.model.UserExample">
-    delete from user
+  <delete id="deleteByExample" parameterType="com.clp.community.model.NotificationExample">
+    delete from notification
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.clp.community.model.User">
-    insert into user (id, account_id, name, 
-      token, gmt_create, gmt_modified, 
-      bio, avatar_url)
-    values (#{id,jdbcType=BIGINT}, #{accountId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
-      #{token,jdbcType=CHAR}, #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}, 
-      #{bio,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.clp.community.model.Notification">
+    insert into notification (id, notifier, receiver, 
+      outerId, type, gmt_create, 
+      status, notifier_name, outer_title
+      )
+    values (#{id,jdbcType=BIGINT}, #{notifier,jdbcType=BIGINT}, #{receiver,jdbcType=BIGINT}, 
+      #{outerId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{gmtCreate,jdbcType=BIGINT}, 
+      #{status,jdbcType=INTEGER}, #{notifierName,jdbcType=VARCHAR}, #{outerTitle,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.clp.community.model.User">
-    insert into user
+  <insert id="insertSelective" parameterType="com.clp.community.model.Notification">
+    insert into notification
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="accountId != null">
-        account_id,
+      <if test="notifier != null">
+        notifier,
       </if>
-      <if test="name != null">
-        name,
+      <if test="receiver != null">
+        receiver,
       </if>
-      <if test="token != null">
-        token,
+      <if test="outerId != null">
+        outerId,
+      </if>
+      <if test="type != null">
+        type,
       </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
-      <if test="gmtModified != null">
-        gmt_modified,
+      <if test="status != null">
+        status,
       </if>
-      <if test="bio != null">
-        bio,
+      <if test="notifierName != null">
+        notifier_name,
       </if>
-      <if test="avatarUrl != null">
-        avatar_url,
+      <if test="outerTitle != null">
+        outer_title,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="accountId != null">
-        #{accountId,jdbcType=VARCHAR},
+      <if test="notifier != null">
+        #{notifier,jdbcType=BIGINT},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="receiver != null">
+        #{receiver,jdbcType=BIGINT},
       </if>
-      <if test="token != null">
-        #{token,jdbcType=CHAR},
+      <if test="outerId != null">
+        #{outerId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
       </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=BIGINT},
       </if>
-      <if test="gmtModified != null">
-        #{gmtModified,jdbcType=BIGINT},
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
       </if>
-      <if test="bio != null">
-        #{bio,jdbcType=VARCHAR},
+      <if test="notifierName != null">
+        #{notifierName,jdbcType=VARCHAR},
       </if>
-      <if test="avatarUrl != null">
-        #{avatarUrl,jdbcType=VARCHAR},
+      <if test="outerTitle != null">
+        #{outerTitle,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.clp.community.model.UserExample" resultType="java.lang.Long">
-    select count(*) from user
+  <select id="countByExample" parameterType="com.clp.community.model.NotificationExample" resultType="java.lang.Long">
+    select count(*) from notification
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update user
+    update notification
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.accountId != null">
-        account_id = #{record.accountId,jdbcType=VARCHAR},
+      <if test="record.notifier != null">
+        notifier = #{record.notifier,jdbcType=BIGINT},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.receiver != null">
+        receiver = #{record.receiver,jdbcType=BIGINT},
       </if>
-      <if test="record.token != null">
-        token = #{record.token,jdbcType=CHAR},
+      <if test="record.outerId != null">
+        outerId = #{record.outerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
       </if>
       <if test="record.gmtCreate != null">
         gmt_create = #{record.gmtCreate,jdbcType=BIGINT},
       </if>
-      <if test="record.gmtModified != null">
-        gmt_modified = #{record.gmtModified,jdbcType=BIGINT},
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.bio != null">
-        bio = #{record.bio,jdbcType=VARCHAR},
+      <if test="record.notifierName != null">
+        notifier_name = #{record.notifierName,jdbcType=VARCHAR},
       </if>
-      <if test="record.avatarUrl != null">
-        avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+      <if test="record.outerTitle != null">
+        outer_title = #{record.outerTitle,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -204,55 +216,60 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update user
+    update notification
     set id = #{record.id,jdbcType=BIGINT},
-      account_id = #{record.accountId,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      token = #{record.token,jdbcType=CHAR},
+      notifier = #{record.notifier,jdbcType=BIGINT},
+      receiver = #{record.receiver,jdbcType=BIGINT},
+      outerId = #{record.outerId,jdbcType=BIGINT},
+      type = #{record.type,jdbcType=INTEGER},
       gmt_create = #{record.gmtCreate,jdbcType=BIGINT},
-      gmt_modified = #{record.gmtModified,jdbcType=BIGINT},
-      bio = #{record.bio,jdbcType=VARCHAR},
-      avatar_url = #{record.avatarUrl,jdbcType=VARCHAR}
+      status = #{record.status,jdbcType=INTEGER},
+      notifier_name = #{record.notifierName,jdbcType=VARCHAR},
+      outer_title = #{record.outerTitle,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.clp.community.model.User">
-    update user
+  <update id="updateByPrimaryKeySelective" parameterType="com.clp.community.model.Notification">
+    update notification
     <set>
-      <if test="accountId != null">
-        account_id = #{accountId,jdbcType=VARCHAR},
+      <if test="notifier != null">
+        notifier = #{notifier,jdbcType=BIGINT},
       </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="receiver != null">
+        receiver = #{receiver,jdbcType=BIGINT},
       </if>
-      <if test="token != null">
-        token = #{token,jdbcType=CHAR},
+      <if test="outerId != null">
+        outerId = #{outerId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
       </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=BIGINT},
       </if>
-      <if test="gmtModified != null">
-        gmt_modified = #{gmtModified,jdbcType=BIGINT},
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="bio != null">
-        bio = #{bio,jdbcType=VARCHAR},
+      <if test="notifierName != null">
+        notifier_name = #{notifierName,jdbcType=VARCHAR},
       </if>
-      <if test="avatarUrl != null">
-        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      <if test="outerTitle != null">
+        outer_title = #{outerTitle,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.clp.community.model.User">
-    update user
-    set account_id = #{accountId,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      token = #{token,jdbcType=CHAR},
+  <update id="updateByPrimaryKey" parameterType="com.clp.community.model.Notification">
+    update notification
+    set notifier = #{notifier,jdbcType=BIGINT},
+      receiver = #{receiver,jdbcType=BIGINT},
+      outerId = #{outerId,jdbcType=BIGINT},
+      type = #{type,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=BIGINT},
-      gmt_modified = #{gmtModified,jdbcType=BIGINT},
-      bio = #{bio,jdbcType=VARCHAR},
-      avatar_url = #{avatarUrl,jdbcType=VARCHAR}
+      status = #{status,jdbcType=INTEGER},
+      notifier_name = #{notifierName,jdbcType=VARCHAR},
+      outer_title = #{outerTitle,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

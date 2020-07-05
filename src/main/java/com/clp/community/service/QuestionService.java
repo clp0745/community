@@ -51,9 +51,10 @@ public class QuestionService {
         return questionDTOList;
     }
 
-    public List<Question> list(Integer userId) {
-        return questionMapper.listByUserId(userId);
-
+    public List<Question> list(Long userId) {
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.setOrderByClause("gmt_create desc");
+        return questionMapper.selectByExample(questionExample);
     }
 
     public List<QuestionDTO> setQuestionDTOByUserId(List<Question> questions) {

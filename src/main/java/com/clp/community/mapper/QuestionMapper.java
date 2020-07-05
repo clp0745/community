@@ -41,7 +41,7 @@ public interface QuestionMapper {
     int updateByPrimaryKey(Question record);
 
     @Select("select * from question where creator = #{userId}")
-    List<Question> listByUserId(@Param("userId") Integer userId);
+    List<Question> listByUserId(@Param("userId") Long userId);
 
     @Select("select * from question where id = #{id}")
     Question getById(@Param("id") Long id);

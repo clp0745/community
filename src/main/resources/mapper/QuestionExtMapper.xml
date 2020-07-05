@@ -6,7 +6,7 @@
         <result column="title" jdbcType="VARCHAR" property="title" />
         <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
         <result column="gmt_modified" jdbcType="BIGINT" property="gmtModified" />
-        <result column="creator" jdbcType="INTEGER" property="creator" />
+        <result column="creator" jdbcType="BIGINT" property="creator" />
         <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
         <result column="view_count" jdbcType="INTEGER" property="viewCount" />
         <result column="like_count" jdbcType="INTEGER" property="likeCount" />

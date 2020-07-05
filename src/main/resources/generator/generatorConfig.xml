@@ -47,6 +47,7 @@
         <!-- 指定数据库表  多个表示,可用多个table标签-->
 <!--        <table tableName="user" domainObjectName="User"></table>-->
 <!--        <table tableName="question" domainObjectName="Question"></table>-->
-        <table tableName="comment" domainObjectName="Comment"></table>
+<!--        <table tableName="comment" domainObjectName="Comment"></table>-->
+        <table tableName="notification" domainObjectName="Notification"></table>
     </context>
 </generatorConfiguration>
