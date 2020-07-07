@@ -21,11 +21,12 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(@RequestParam(name = "pn",defaultValue = "1") Integer pn,
-                          Model model){
+                        @RequestParam(name = "search",required = false) String search,
+                        Model model){
 
         PageHelper.startPage(pn,5);
 
-        List<Question> questionList = questionService.list();
+        List<Question> questionList = questionService.list(search);
         //封装了详细的分页信息 ，包括我们查询出来的数据
         PageInfo pageInfo = new PageInfo(questionList);
 

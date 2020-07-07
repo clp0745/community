@@ -34,11 +34,13 @@ public class QuestionService {
 
     public List<Question> list() {
 //        return questionMapper.list();
+
         QuestionExample questionExample = new QuestionExample();
         questionExample.setOrderByClause("gmt_create desc");
         return questionMapper.selectByExample(questionExample);
     }
 
+    /*将question属性拷贝到questionDTO对象上*/
     public List<QuestionDTO> setQuestionDTO(List<Question> questions) {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questions){
@@ -53,20 +55,10 @@ public class QuestionService {
 
     public List<Question> list(Long userId) {
         QuestionExample questionExample = new QuestionExample();
+        questionExample.createCriteria()
+                .andIdEqualTo(userId);
         questionExample.setOrderByClause("gmt_create desc");
         return questionMapper.selectByExample(questionExample);
-    }
-
-    public List<QuestionDTO> setQuestionDTOByUserId(List<Question> questions) {
-        List<QuestionDTO> questionDTOListByUserId = new ArrayList<>();
-        for (Question question : questions){
-            User user = userMapper.selectByPrimaryKey(question.getCreator());
-            QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(question,questionDTO);//将question属性拷贝到questionDTO对象上
-            questionDTO.setUser(user);
-            questionDTOListByUserId.add(questionDTO);
-        }
-        return questionDTOListByUserId;
     }
 
     public QuestionDTO getById(Long id) {
@@ -131,4 +123,5 @@ public class QuestionService {
         }).collect(Collectors.toList());
         return questionDTOS;
     }
+
 }

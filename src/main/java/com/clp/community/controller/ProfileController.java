@@ -51,7 +51,7 @@ public class ProfileController {
             PageInfo PageInfoByUserId = new PageInfo(questionListByUserId);
 
             //封装所查用户id的信息
-            List<QuestionDTO> questionDTOListByUserId = questionService.setQuestionDTOByUserId(questionListByUserId);
+            List<QuestionDTO> questionDTOListByUserId = questionService.setQuestionDTO(questionListByUserId);
             PageInfoByUserId.setList(questionDTOListByUserId);
             model.addAttribute("pageInfo",PageInfoByUserId);
 

@@ -1,23 +1,14 @@
 package com.clp.community.controller;
 
 import com.clp.community.dto.NotificationDTO;
-import com.clp.community.dto.QuestionDTO;
 import com.clp.community.enums.NotificationTypeEnum;
-import com.clp.community.model.Notification;
-import com.clp.community.model.Question;
 import com.clp.community.model.User;
 import com.clp.community.service.NotificationService;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class notificationController {
@@ -28,7 +19,6 @@ public class notificationController {
     @GetMapping("/notification/{id}")
     public String profile(@PathVariable(name = "id") Long id,
                           HttpServletRequest request){
-
         User user = (User) request.getSession().getAttribute("user");
 
         if (user == null){
@@ -43,8 +33,6 @@ public class notificationController {
         } else {
             return "redirect:/";
         }
-
-
     }
 }
 

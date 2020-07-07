@@ -1,7 +1,6 @@
 package com.clp.community.service;
 
 import com.clp.community.dto.NotificationDTO;
-import com.clp.community.dto.QuestionDTO;
 import com.clp.community.enums.NotificationStatusEnum;
 import com.clp.community.enums.NotificationTypeEnum;
 import com.clp.community.exception.CustomizeErrorCode;
@@ -9,12 +8,10 @@ import com.clp.community.exception.CustomizeException;
 import com.clp.community.mapper.NotificationMapper;
 import com.clp.community.model.Notification;
 import com.clp.community.model.NotificationExample;
-import com.clp.community.model.Question;
 import com.clp.community.model.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +21,10 @@ public class NotificationService {
     @Autowired
     private NotificationMapper notificationMapper;
 
-    public List<Notification> list(Long id) {
+    public List<Notification> list(Long userId) {
         NotificationExample notificationExample = new NotificationExample();
+        notificationExample.createCriteria()
+                            .andReceiverEqualTo(userId);
         notificationExample.setOrderByClause("gmt_create desc");
         return notificationMapper.selectByExample(notificationExample);
     }

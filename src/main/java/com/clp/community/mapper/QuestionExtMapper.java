@@ -1,5 +1,6 @@
 package com.clp.community.mapper;
 
+import com.clp.community.dto.QuestionQueryDTO;
 import com.clp.community.model.Question;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -30,4 +31,5 @@ public interface QuestionExtMapper {
     int incCommentCount(Question record);
 
     List<Question> selectRelated(Question question);
+
 }
