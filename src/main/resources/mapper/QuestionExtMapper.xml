@@ -31,4 +31,14 @@
         where id != #{id}
         and tag regexp #{tag}
     </select>
+    <select id="selectBySearch" parameterType="com.clp.community.dto.QuestionQueryDTO" resultMap="BaseResultMap">
+        select *
+        from question
+        <where>
+            <if test="search != null">
+                and title regexp #{search}
+            </if>
+        </where>
+        order by gmt_create desc
+    </select>
 </mapper>

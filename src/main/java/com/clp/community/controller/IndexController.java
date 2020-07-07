@@ -32,10 +32,10 @@ public class IndexController {
 
         //封装用户信息
         List<QuestionDTO> questionDTOList = questionService.setQuestionDTO(questionList);
-
         pageInfo.setList(questionDTOList);
 
         model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("search",search);
         return "index";
     }
 

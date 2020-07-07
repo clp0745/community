@@ -1,6 +1,7 @@
 package com.clp.community.service;
 
 import com.clp.community.dto.QuestionDTO;
+import com.clp.community.dto.QuestionQueryDTO;
 import com.clp.community.exception.CustomizeErrorCode;
 import com.clp.community.exception.CustomizeException;
 import com.clp.community.mapper.QuestionExtMapper;
@@ -32,12 +33,22 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
-    public List<Question> list() {
+    public List<Question> list(String search) {
 //        return questionMapper.list();
 
-        QuestionExample questionExample = new QuestionExample();
-        questionExample.setOrderByClause("gmt_create desc");
-        return questionMapper.selectByExample(questionExample);
+        if (StringUtils.isNotBlank(search)){
+            String[] tags = StringUtils.split(search, " ");
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+            QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+            questionQueryDTO.setSearch(search);
+            return questionExtMapper.selectBySearch(questionQueryDTO);
+        } else {
+            QuestionExample questionExample = new QuestionExample();
+            questionExample.setOrderByClause("gmt_create desc");
+            return questionMapper.selectByExample(questionExample);
+        }
+
+
     }
 
     /*将question属性拷贝到questionDTO对象上*/

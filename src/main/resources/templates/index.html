@@ -49,7 +49,7 @@
                     <nav aria-label="Page navigation right">
                         <ul class="pagination list-unstyled">
                             <li th:class="${pageInfo.isFirstPage==true}?'disabled':''">
-                                <a th:href="@{'/?pn=1'}" aria-label="Previous" th:if="${pageInfo.isFirstPage==false}">
+                                <a th:href="@{/(pn=${pageInfo.getNavigateFirstPage()},search=${search})}" aria-label="Previous" th:if="${pageInfo.isFirstPage==false}">
                                     <span aria-hidden="true">&lt;&lt;</span>
                                 </a>
                                 <span th:if="${pageInfo.isFirstPage==true}">
@@ -57,7 +57,7 @@
                                 </span>
                             </li>
                             <li th:class="${pageInfo.hasPreviousPage==false}?'disabled':''">
-                                <a th:href="@{'/?pn='+${pageInfo.getPrePage()}}" aria-label="Previous" th:if="${pageInfo.hasPreviousPage==true}">
+                                <a th:href="@{/(pn=${pageInfo.getPrePage()},search=${search})}" aria-label="Previous" th:if="${pageInfo.hasPreviousPage==true}">
                                     <span aria-hidden="true">&lt;</span>
                                 </a>
                                 <span th:if="${pageInfo.hasPreviousPage==false}">
@@ -66,12 +66,12 @@
                             </li>
 
                             <li th:each="item:${pageInfo.getNavigatepageNums()}" th:class="${pageInfo.getPageNum()==item}?'active':''">
-                                <a th:href="@{'/?pn='+${item}}" th:text="${item}" th:if="${pageInfo.getPageNum()!=item}"></a>
+                                <a th:href="@{/(pn=${item},search=${search})}" th:text="${item}" th:if="${pageInfo.getPageNum()!=item}"></a>
                                 <span th:if="${pageInfo.getPageNum()==item}" th:text="${item}"></span>
                             </li>
 
                             <li th:class="${pageInfo.hasNextPage==false}?'disabled':''">
-                                <a th:href="@{'/?pn='+${pageInfo.getNextPage()}}" aria-label="Next" th:if="${pageInfo.hasNextPage==true}">
+                                <a th:href="@{/(pn=${pageInfo.getNextPage()},search=${search})}" aria-label="Next" th:if="${pageInfo.hasNextPage==true}">
                                     <span aria-hidden="true">&gt;</span>
                                 </a>
                                 <span th:if="${pageInfo.hasNextPage==false}">
@@ -79,7 +79,8 @@
                                 </span>
                             </li>
                             <li th:class="${pageInfo.isLastPage==true}?'disabled':''">
-                                <a th:href="@{'/?pn='+${pageInfo.getPages()}}" aria-label="Previous" th:if="${pageInfo.isLastPage==false}">
+                                <a th:href="@{/(pn=${pageInfo.getPages()},search=${search})}" aria-label="Previous" th:if="${pageInfo.isLastPage==false}">
+<!--                                <a th:href="@{'/?pn='+${pageInfo.getPages()}}" aria-label="Previous" th:if="${pageInfo.isLastPage==false}">-->
                                     <span aria-hidden="true">&gt;&gt;</span>
                                 </a>
                                 <span th:if="${pageInfo.isLastPage==true}">
