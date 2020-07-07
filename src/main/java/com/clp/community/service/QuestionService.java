@@ -34,8 +34,6 @@ public class QuestionService {
     private UserMapper userMapper;
 
     public List<Question> list(String search) {
-//        return questionMapper.list();
-
         if (StringUtils.isNotBlank(search)){
             String[] tags = StringUtils.split(search, " ");
             search = Arrays.stream(tags).collect(Collectors.joining("|"));
@@ -47,8 +45,6 @@ public class QuestionService {
             questionExample.setOrderByClause("gmt_create desc");
             return questionMapper.selectByExample(questionExample);
         }
-
-
     }
 
     /*将question属性拷贝到questionDTO对象上*/
